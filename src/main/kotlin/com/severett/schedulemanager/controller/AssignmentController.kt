@@ -1,21 +1,30 @@
 package com.severett.schedulemanager.controller
 
-import com.severett.schedulemanager.model.BuildingAssignment
-import com.severett.schedulemanager.service.BuildingAssigner
+import com.severett.schedulemanager.model.Assignment
+import com.severett.schedulemanager.service.RosterAssigner
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
+import java.time.Instant
 
 @RestController
-class AssignmentController(private val buildingAssigner: BuildingAssigner) {
+class AssignmentController(
+    private val rosterAssigner: RosterAssigner
+) {
 
-    @GetMapping("/assignments")
+    @GetMapping("/assignment")
     @ResponseBody
-    fun getAssignments(): List<BuildingAssignment> {
-        return buildingAssigner.assignRosters(
-            roomsList = listOf(24, 28),
-            juniorCapacity = 6,
-            seniorCapacity = 11
+    fun getAssignment(
+        @RequestParam officeId: Int,
+        @RequestParam seniorCapacity: Int,
+        @RequestParam juniorCapacity: Int
+    ): Assignment {
+        return rosterAssigner.assignRoster(
+            officeId = officeId,
+            startTime = Instant.now(),
+            seniorCapacity = seniorCapacity,
+            juniorCapacity = juniorCapacity
         )
     }
 }

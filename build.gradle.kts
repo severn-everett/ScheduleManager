@@ -19,7 +19,9 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging:2.0.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
     implementation("org.springframework.boot:spring-boot-starter-web") {
-        exclude(group = "org.springframework.boot", module = "spring-boot-starter-json")
+        // TODO Revert exclusion when Kotlin-based serializer is created
+        //      for LinkedHashMap - https://vividcode.io/kotlin-serialization-with-spring-5-3/
+        // exclude(group = "org.springframework.boot", module = "spring-boot-starter-json")
     }
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
