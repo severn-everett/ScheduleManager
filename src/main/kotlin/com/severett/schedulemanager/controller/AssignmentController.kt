@@ -17,14 +17,12 @@ class AssignmentController(
     @ResponseBody
     fun getAssignment(
         @RequestParam officeId: Int,
-        @RequestParam seniorCapacity: Int,
-        @RequestParam juniorCapacity: Int
+        @RequestParam serviceCompanyId: Int
     ): Assignment {
         return rosterAssigner.assignRoster(
             officeId = officeId,
-            startTime = Instant.now(),
-            seniorCapacity = seniorCapacity,
-            juniorCapacity = juniorCapacity
+            serviceCompanyId = serviceCompanyId,
+            startTime = Instant.now()
         )
     }
 }

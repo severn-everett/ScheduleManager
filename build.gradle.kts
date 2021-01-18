@@ -15,14 +15,12 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
     implementation("io.github.microutils:kotlin-logging:2.0.4")
+    implementation("org.flywaydb:flyway-core:7.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
-    implementation("org.springframework.boot:spring-boot-starter-web") {
-        // TODO Revert exclusion when Kotlin-based serializer is created
-        //      for LinkedHashMap - https://vividcode.io/kotlin-serialization-with-spring-5-3/
-        // exclude(group = "org.springframework.boot", module = "spring-boot-starter-json")
-    }
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
+    implementation("org.springframework.boot:spring-boot-starter-web")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit.jupiter:junit-jupiter-api")

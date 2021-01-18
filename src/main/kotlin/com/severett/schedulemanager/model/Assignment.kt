@@ -7,6 +7,7 @@ import java.time.Instant
 @Serializable
 data class Assignment(
     val office: Office,
+    val serviceCompanyName: String,
     @Serializable(with = InstantSerializer::class)
     val startTime: Instant,
     val seniorAmt: Int,

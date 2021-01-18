@@ -6,8 +6,7 @@ import java.time.Instant
 interface RosterAssigner {
     fun assignRoster(
         officeId: Int,
-        startTime: Instant,
-        seniorCapacity: Int,
-        juniorCapacity: Int
+        serviceCompanyId: Int,
+        startTime: Instant
     ): Assignment
 }
