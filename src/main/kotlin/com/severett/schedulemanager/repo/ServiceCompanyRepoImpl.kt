@@ -1,14 +1,26 @@
 package com.severett.schedulemanager.repo
 
+import com.severett.schedulemanager.data.DBConnection
 import com.severett.schedulemanager.model.ServiceCompany
 import org.springframework.stereotype.Component
 
 @Component
-class ServiceCompanyRepoImpl : ServiceCompanyRepo {
-    private val repo = mapOf(
-        1 to ServiceCompany(1, "Service Company One", 10, 6),
-        2 to ServiceCompany(2, "Service Company Two", 11, 6)
-    )
-
-    override fun get(id: Int) = repo[id]
+class ServiceCompanyRepoImpl(private val dbConnection: DBConnection) : ServiceCompanyRepo {
+    override fun get(id: Int): ServiceCompany? {
+        val rows = dbConnection.sendPreparedStatement(
+            "SELECT * FROM service_company WHERE id = ? LIMIT 1",
+            listOf(id)
+        ).join().rows
+        return if (rows.isNotEmpty()) {
+            val rowData = rows.first()
+            ServiceCompany(
+                id = rowData.getAs("id"),
+                name = rowData.getAs("name"),
+                seniorCapacity = rowData.getAs("senior_capacity"),
+                juniorCapacity = rowData.getAs("junior_capacity")
+            )
+        } else {
+            null
+        }
+    }
 }

@@ -1,19 +1,25 @@
 package com.severett.schedulemanager.repo
 
+import com.severett.schedulemanager.data.DBConnection
 import com.severett.schedulemanager.model.Office
 import org.springframework.stereotype.Component
 
 @Component
-class OfficeRepoImpl : OfficeRepo {
-    private val repo = mapOf(
-        1 to Office(1, "Office One", 35),
-        2 to Office(2, "Office Two", 21),
-        3 to Office(3, "Office Three", 17),
-        4 to Office(4, "Office Four", 24),
-        5 to Office(5, "Office Five", 28),
-    )
-
+class OfficeRepoImpl(private val dbConnection: DBConnection) : OfficeRepo {
     override fun get(id: Int): Office? {
-        return repo[id]
+        val rows = dbConnection.sendPreparedStatement(
+            "SELECT * FROM office WHERE id = ? LIMIT 1",
+            listOf(id)
+        ).join().rows
+        return if (rows.isNotEmpty()) {
+            val rowData = rows.first()
+            Office(
+                id = rowData.getAs("id"),
+                name = rowData.getAs("name"),
+                roomAmount = rowData.getAs("room_amount")
+            )
+        } else {
+            null
+        }
     }
 }

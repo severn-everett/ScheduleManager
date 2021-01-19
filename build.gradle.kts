@@ -4,6 +4,7 @@ plugins {
     kotlin("plugin.serialization") version kotlinVersion
     id("org.springframework.boot") version "2.4.1"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
+    id("org.flywaydb.flyway") version "7.5.0"
 }
 
 group = "com.severett"
@@ -16,10 +17,11 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
+    implementation("com.github.jasync-sql:jasync-postgresql:1.1.6")
     implementation("io.github.microutils:kotlin-logging:2.0.4")
-    implementation("org.flywaydb:flyway-core:7.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
+    implementation("org.postgresql:postgresql:42.2.18")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")

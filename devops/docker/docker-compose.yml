@@ -4,9 +4,9 @@ services:
     container_name: postgres
     image: postgres:13.1
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=schedule_management
+      - POSTGRES_USER=db_user
+      - POSTGRES_PASSWORD=db_password
     restart: always
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}/tcp
+      - 5432:5432/tcp
