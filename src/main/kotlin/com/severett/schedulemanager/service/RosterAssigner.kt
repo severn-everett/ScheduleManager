@@ -4,7 +4,7 @@ import com.severett.schedulemanager.model.Assignment
 import java.time.Instant
 
 interface RosterAssigner {
-    fun assignRoster(
+    suspend fun assignRoster(
         officeId: Int,
         serviceCompanyId: Int,
         startTime: Instant

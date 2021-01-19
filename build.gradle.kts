@@ -15,14 +15,17 @@ repositories {
 }
 
 dependencies {
+    val coroutinesVersion: String by project
+
     implementation(kotlin("stdlib-jdk8"))
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
     implementation("com.github.jasync-sql:jasync-postgresql:1.1.6")
     implementation("io.github.microutils:kotlin-logging:2.0.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
     implementation("org.postgresql:postgresql:42.2.18")
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
@@ -30,6 +33,11 @@ dependencies {
 }
 
 tasks {
+    withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).configureEach {
+        kotlinOptions {
+            jvmTarget = "15"
+        }
+    }
     test {
         useJUnitPlatform()
     }

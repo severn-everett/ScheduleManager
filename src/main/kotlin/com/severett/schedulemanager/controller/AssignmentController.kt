@@ -15,7 +15,7 @@ class AssignmentController(
 
     @GetMapping("/assignment")
     @ResponseBody
-    fun getAssignment(
+    suspend fun getAssignment(
         @RequestParam officeId: Int,
         @RequestParam serviceCompanyId: Int
     ): Assignment {

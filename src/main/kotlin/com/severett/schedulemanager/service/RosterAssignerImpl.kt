@@ -6,6 +6,7 @@ import com.severett.schedulemanager.model.ServiceCompany
 import com.severett.schedulemanager.model.exception.ResourceNotFoundException
 import com.severett.schedulemanager.repo.OfficeRepo
 import com.severett.schedulemanager.repo.ServiceCompanyRepo
+import kotlinx.coroutines.yield
 import org.springframework.stereotype.Service
 import java.time.Instant
 import kotlin.math.ceil
@@ -16,7 +17,7 @@ class RosterAssignerImpl(
     private val serviceCompanyRepo: ServiceCompanyRepo
 ) : RosterAssigner {
 
-    override fun assignRoster(
+    override suspend fun assignRoster(
         officeId: Int,
         serviceCompanyId: Int,
         startTime: Instant
@@ -28,7 +29,7 @@ class RosterAssignerImpl(
         return determineRoster(office, serviceCompany, startTime)
     }
 
-    private fun determineRoster(
+    private suspend fun determineRoster(
         office: Office,
         serviceCompany: ServiceCompany,
         startTime: Instant
@@ -60,6 +61,7 @@ class RosterAssignerImpl(
                 finalJuniorAmt = juniorAmt
             }
             seniorAmt -= 1
+            yield()
         }
         return Assignment(
             office = office,
