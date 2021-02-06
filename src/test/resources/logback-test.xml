@@ -1,4 +1,4 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
-    <logger name="io.mockk" level="debug"/>
+    <logger name="io.mockk" level="info"/>
 </configuration>
