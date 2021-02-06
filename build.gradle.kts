@@ -38,6 +38,9 @@ tasks {
     withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).configureEach {
         kotlinOptions {
             jvmTarget = "15"
+            apiVersion = "1.5"
+            languageVersion = "1.5"
+            freeCompilerArgs = listOf("-Xjvm-enable-preview")
         }
     }
     test {

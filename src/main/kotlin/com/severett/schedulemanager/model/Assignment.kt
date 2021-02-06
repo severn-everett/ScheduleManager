@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 import java.time.Instant
 
 @Serializable
+@JvmRecord
 data class Assignment(
     val office: Office,
     val serviceCompanyName: String,
